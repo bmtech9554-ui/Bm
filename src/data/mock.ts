@@ -11,7 +11,6 @@ export const wallet = {
 export const transactions: Transaction[] = [
   { id: "tx_001", type: "deposit", amount: 500, status: "completed", createdAt: "2026-09-30T10:40:00Z", reference: "TRC20 • 8f2a...4cd1" },
   { id: "tx_002", type: "withdrawal", amount: 120, status: "pending", createdAt: "2026-09-29T17:15:00Z", reference: "Bank payout • #PW1024" },
-  { id: "tx_003", type: "referral", amount: 12.5, status: "completed", createdAt: "2026-09-28T08:00:00Z", reference: "Referral reward" },
 ];
 
 export const payoutMethods: PayoutMethod[] = [
