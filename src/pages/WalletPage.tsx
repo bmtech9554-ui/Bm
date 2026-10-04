@@ -25,6 +25,10 @@ export default function WalletPage() {
     return <section className="card section-card"><p className="warning" role="alert">{walletState.message}</p></section>;
   }
 
+  if (walletState.status !== "ready") {
+    return <section className="card section-card"><p role="status">Wallet data is unavailable.</p></section>;
+  }
+
   const wallet = walletState.data;
 
   return (
