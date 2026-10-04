@@ -24,6 +24,10 @@ export default function DepositPage() {
     return <section className="card section-card"><p className="warning" role="alert">{walletState.message}</p></section>;
   }
 
+  if (walletState.status !== "ready") {
+    return <section className="card section-card"><p role="status">Deposit details are unavailable.</p></section>;
+  }
+
   const address = walletState.data.depositAddress;
 
   return (
