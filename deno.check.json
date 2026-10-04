@@ -1,5 +1,0 @@
-{
-  "nodeModulesDir": "manual",
-  "compilerOptions": { "strict": true, "types": ["npm:@types/node@26.6.4"] },
-  "imports": { "npm:@types/node": "npm:@types/node@26.6.4" }
-}

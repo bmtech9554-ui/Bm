@@ -49,8 +49,12 @@ export default function DepositPage() {
         <p className="warning" role="status">No TRC20 deposit address is available for this account.</p>
       )}
       <div className="warning">
-        {walletState.data.paymentsEnabled ? <>Send <b>USDT only via TRC20</b>. Do not use another token or network.</> : 'Deposits are unavailable until the payment provider is connected. Do not send funds.'}
+        Send <b>USDT only via TRC20</b>. Do not send any other token or use another blockchain network.
       </div>
+      <label className="field">
+        Amount (optional)
+        <input inputMode="decimal" placeholder="0.00 USDT" />
+      </label>
       <p className="fine-print">Deposits are credited only after server-side blockchain verification. This page does not create client-side wallet credits.</p>
     </section>
   );
