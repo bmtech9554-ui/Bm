@@ -1,14 +1,21 @@
 import { ArrowDownToLine, Bell, Landmark, ShieldCheck, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import Amount from "../components/Amount";
-import { transactions, wallet } from "../data/mock";
+import { useWalletSummary, useWalletTransactions } from "../hooks/useWalletData";
 
 export default function HomePage() {
+  const walletState = useWalletSummary();
+  const transactionState = useWalletTransactions();
+
   return (
     <>
       <section className="balance-card">
         <p>Available balance</p>
-        <Amount value={wallet.available} />
+        {walletState.status === "loading" && <span role="status">Loading balance…</span>}
+        {walletState.status === "error" && <span role="alert">{walletState.message}</span>}
+        {walletState.status === "ready" && (
+          <Amount value={walletState.data.availableBalanceUsdt} />
+        )}
         <span>USDT on TRC20 only</span>
         <div className="action-row">
           <Link className="action-button" to="/deposit"><ArrowDownToLine size={18}/>Deposit</Link>
@@ -25,10 +32,19 @@ export default function HomePage() {
       <section className="section">
         <div className="section-title"><h2>Recent activity</h2><Link to="/transactions">View all</Link></div>
         <div className="card list">
-          {transactions.slice(0, 3).map(tx => (
+          {transactionState.status === "loading" && (
+            <div className="list-row"><span role="status">Loading activity…</span></div>
+          )}
+          {transactionState.status === "error" && (
+            <div className="list-row"><span role="alert">{transactionState.message}</span></div>
+          )}
+          {transactionState.status === "empty" && (
+            <div className="list-row"><span>No wallet activity yet.</span></div>
+          )}
+          {transactionState.status === "ready" && transactionState.data.slice(0, 3).map(tx => (
             <div className="list-row" key={tx.id}>
               <div><b>{tx.type[0].toUpperCase() + tx.type.slice(1)}</b><span>{new Date(tx.createdAt).toLocaleDateString()}</span></div>
-              <div className="right"><Amount value={tx.amount} compact/><span className={"status " + tx.status}>{tx.status}</span></div>
+              <div className="right"><Amount value={tx.amountUsdt} compact/><span className={"status " + tx.status}>{tx.status}</span></div>
             </div>
           ))}
         </div>
