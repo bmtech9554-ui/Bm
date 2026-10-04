@@ -28,7 +28,7 @@ export function useWalletSummary(): LoadState<WalletSummary> {
     const controller = new AbortController();
 
     fetchWalletSummary(controller.signal)
-      .then((summary) => { if (!controller.signal.aborted) setState({ status: "ready", data: summary }); })
+      .then((summary) => setState({ status: "ready", data: summary }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return;
         setState({ status: "error", message: walletErrorMessage(error) });
@@ -50,7 +50,7 @@ export function useWalletTransactions(): LoadState<WalletTransaction[]> {
 
     fetchWalletTransactions(controller.signal)
       .then((transactions) =>
-        !controller.signal.aborted && setState(
+        setState(
           transactions.length > 0
             ? { status: "ready", data: transactions }
             : { status: "empty" },
